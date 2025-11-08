@@ -1,0 +1,14 @@
+description: The Everest Tutorial Module
+config:
+  config_tutorial_switch:
+    description: A boolean configuration parameter.
+    type: boolean
+    default: false
+provides:
+  interface_impl_tutorial_module:
+    interface: interface_tutorial_module
+    description: An actual implementation in your module of "interface_tutorial_module" interface.
+metadata:
+  license: https://opensource.org/licenses/Apache-2.0
+  authors:
+    - Andrei Mironenko, Parallel Dynamic Ltd.
