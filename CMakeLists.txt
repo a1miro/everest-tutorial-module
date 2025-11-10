@@ -13,17 +13,19 @@ option(CMAKE_RUN_CLANG_TIDY "Run clang-tidy" OFF)
 if (NOT DISABLE_EDM)
     evc_setup_edm()
 else()
-    find_package(everest-core)
+    find_package(everest-framework REQUIRED)
     # InfyPowerACDC uses pal-sigslot
     find_package(PalSigslot REQUIRED)
 endif()
 ev_add_project()
 
+if (DISABLE_EDM)
 # interfaces
 add_subdirectory(interfaces)
 
 # modules
 add_subdirectory(modules)
+endif()
 
 # config (not needed if you do not need a run script for your configuration)
 # add_subdirectory(config)
