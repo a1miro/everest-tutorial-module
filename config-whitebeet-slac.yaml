@@ -1,0 +1,86 @@
+# EVerest Configuration using WhiteBeet SLAC Module
+#
+# This configuration replaces the standard EvseSlac module with WhiteBeetSlac
+# for direct integration with WHITE-beet-EI hardware.
+
+active_modules:
+  evse_manager:
+    module: EvseManager
+    config_module:
+      connector_id: 1
+      three_phases: false
+      has_ventilation: false
+      country_code: "DE"
+      charge_mode: DC
+      max_current_import_A: 32.0
+      max_current_export_A: 0.0
+    config_implementation:
+      bsp:
+        ac_hlc_enabled: false
+        ac_hlc_use_5percent: false
+        ac_enforce_hlc: false
+      energy_meter: {}
+    connections:
+      bsp:
+        - module_id: evse_board_support
+          implementation_id: board_support
+      hlc:
+        - module_id: iso15118_charger
+          implementation_id: charger
+      powermeter:
+        - module_id: power_meter
+          implementation_id: main
+      slac:
+        - module_id: whitebeet_slac
+          implementation_id: main
+
+  whitebeet_slac:
+    module: WhiteBeetSlac
+    config_module:
+      device: eth0
+      whitebeet_mac: "c4:93:00:34:a4:e4"
+      slac_timeout_ms: 50000
+      publish_mac_on_match_cnf: true
+    config_implementation:
+      main: {}
+
+  iso15118_charger:
+    module: EvseV2G
+    config_module:
+      device: eth0
+      supported_DIN70121: false
+      supported_ISO15118_2: true
+      tls_security: prohibit
+      tls_key_logging: false
+      terminate_connection_on_failed_response: false
+    config_implementation:
+      charger: {}
+    connections:
+      security:
+        - module_id: evse_security
+          implementation_id: main
+
+  evse_board_support:
+    module: YetiDriver
+    config_module:
+      serial_port: /dev/ttyUSB0
+      baud_rate: 115200
+      reset_gpio: -1
+    config_implementation:
+      board_support: {}
+
+  power_meter:
+    module: YetiDriver
+    config_module:
+      serial_port: /dev/ttyUSB0
+      baud_rate: 115200
+    config_implementation:
+      main: {}
+
+  evse_security:
+    module: EvseSecurityMock
+    config_module: {}
+    config_implementation:
+      main: {}
+
+settings: {}
