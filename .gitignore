@@ -1,0 +1,28 @@
+# Build outputs
+build/
+
+# Yocto/devtool artifacts in workspace module checkout
+oe-logs/
+oe-workdir/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+compile_commands.json
+install_manifest.txt
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python cache (if local helper scripts are added)
+__pycache__/
+*.py[cod]
+
+# OS files
+.DS_Store

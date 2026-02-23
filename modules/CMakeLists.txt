@@ -1,2 +1,2 @@
 ev_add_module(TutorialModule)
-ev_add_module(WhiteBeetSlac)
+ev_add_module(TutorialClientModule)

@@ -1,0 +1,23 @@
+# Minimal EVerest configuration for everest-tutorial-module
+
+active_modules:
+  tutorial_module:
+    module: TutorialModule
+    config_module:
+      config_tutorial_switch: true
+    config_implementation:
+      interface_impl_tutorial_module: {}
+
+  tutorial_client_module:
+    module: TutorialClientModule
+    config_module:
+      client_name: TutorialClient
+      request_payload: hello from config
+    config_implementation:
+      main: {}
+    connections:
+      tutorial_interface:
+        - module_id: tutorial_module
+          implementation_id: interface_impl_tutorial_module
+
+settings: {}

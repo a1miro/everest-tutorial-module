@@ -1,0 +1,21 @@
+description: C++ client module for interface_tutorial_module
+config:
+  client_name:
+    description: Name identifier for this client instance.
+    type: string
+    default: DefaultClient
+  request_payload:
+    description: Payload to send to command_tutorial on startup.
+    type: string
+    default: hello from TutorialClientModule
+provides:
+  main:
+    interface: empty
+    description: Internal implementation (module has no external interface)
+requires:
+  tutorial_interface:
+    interface: interface_tutorial_module
+metadata:
+  license: https://opensource.org/licenses/Apache-2.0
+  authors:
+    - Andrei Mironenko, Parallel Dynamic Ltd.

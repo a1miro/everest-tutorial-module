@@ -10,14 +10,26 @@ find_package(everest-cmake REQUIRED
 # options
 option(BUILD_TESTING "Run unit tests" OFF)
 option(CMAKE_RUN_CLANG_TIDY "Run clang-tidy" OFF)
+
+if(NOT EVEREST_SCHEMA_DIR)
+    if(DEFINED CMAKE_SYSROOT AND EXISTS "${CMAKE_SYSROOT}/usr/share/everest/schemas")
+        set(EVEREST_SCHEMA_DIR "${CMAKE_SYSROOT}/usr/share/everest/schemas")
+    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/interfaces")
+        set(EVEREST_SCHEMA_DIR "${CMAKE_CURRENT_SOURCE_DIR}/interfaces")
+    endif()
+endif()
+
 # dependencies
 if (NOT DISABLE_EDM)
     evc_setup_edm()
 else()
-    find_package(everest-framework REQUIRED)
+    find_package(everest-log REQUIRED)
+    find_package(everest-sqlite REQUIRED)
+    #find_package(everest-framework REQUIRED)
+    find_package(everest-core REQUIRED)
     # InfyPowerACDC uses pal-sigslot
     find_package(PalSigslot REQUIRED)
-    include(ev-project-bootstrap)
+    #include(ev-project-bootstrap)
 endif()
 
 ev_add_project()
