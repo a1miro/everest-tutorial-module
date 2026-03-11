@@ -34,6 +34,14 @@ endif()
 
 ev_add_project()
 
+include(GNUInstallDirs)
+
+# Install config file to /etc/everest
+install(
+    FILES config-tutorial-module.yaml
+    DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/everest
+)
+
 # config (not needed if you do not need a run script for your configuration)
 # add_subdirectory(config)
 
