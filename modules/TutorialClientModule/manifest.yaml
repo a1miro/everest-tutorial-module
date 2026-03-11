@@ -8,6 +8,10 @@ config:
     description: Payload to send to command_tutorial on startup.
     type: string
     default: hello from TutorialClientModule
+  request_period_seconds:
+    description: Period in seconds between command_tutorial requests.
+    type: integer
+    default: 5
 provides:
   main:
     interface: empty

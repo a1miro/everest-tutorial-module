@@ -13,6 +13,7 @@ active_modules:
     config_module:
       client_name: TutorialClient
       request_payload: hello from config
+      request_period_seconds: 5
     config_implementation:
       main: {}
     connections:

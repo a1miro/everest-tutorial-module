@@ -16,11 +16,15 @@
 // headers for required interface implementations
 #include <generated/interfaces/interface_tutorial_module/Interface.hpp>
 
+#include <atomic>
+#include <thread>
+
 namespace module {
 
 struct Conf {
     std::string client_name;
     std::string request_payload;
+    int request_period_seconds{5};
 };
 
 class TutorialClientModule : public Everest::ModuleBase {
@@ -30,6 +34,7 @@ public:
                         std::unique_ptr<interface_tutorial_moduleIntf> r_tutorial_interface, Conf& config) :
         ModuleBase(info), p_main(std::move(p_main)), r_tutorial_interface(std::move(r_tutorial_interface)),
         config(config) {};
+    ~TutorialClientModule();
 
     const std::unique_ptr<emptyImplBase> p_main;
     const std::unique_ptr<interface_tutorial_moduleIntf> r_tutorial_interface;
@@ -39,6 +44,10 @@ private:
     friend class LdEverest;
     void init();
     void ready();
+    void send_request_once();
+
+    std::atomic<bool> keep_sending{false};
+    std::thread periodic_request_thread;
 };
 
 } // namespace module
